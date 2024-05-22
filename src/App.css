@@ -1,0 +1,68 @@
+:root {
+	--moon-glow: #fffed5;
+	--burly-wood: #e7b793;
+	/* --tacao: #efaf8c */
+	--mojo: #b44c33;
+	--reddish-grey: #9b7664;
+	--bistre: #39261f;
+	--chardonnay: #ffc774;
+	--faded-orange: #df9b46;
+	/* --butter: #ffff85; */
+
+	color: var(--bistre);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	/* padding: 32px 40px; */
+	background-color: var(--moon-glow);
+}
+
+ul {
+	list-style: none;
+}
+
+.header {
+	background-color: var(--burly-wood);
+	padding: 8px 24px;
+	min-height: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo-text {
+	text-decoration: none;
+	font-size: 32px;
+}
+
+.logo-text:visited {
+	color: var(--bistre);
+}
+
+/* CSS */
+.btn-project {
+	padding: 4px 12px;
+	border-radius: 6px;
+	border: none;
+	font-family: 'Roboto', sans-serif;
+	background: #6e6d70;
+	box-shadow:
+		0px 0.5px 1px rgba(0, 0, 0, 0.1),
+		inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5),
+		0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+	color: var(--chardonnay);
+}
+
+.btn-project:hover {
+	box-shadow:
+		inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2),
+		0px 0.5px 1px rgba(0, 0, 0, 0.1),
+		0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+	outline: 0;
+}
