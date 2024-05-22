@@ -46,7 +46,7 @@ ul {
 }
 
 /* CSS */
-.btn-project {
+.btn-big {
 	padding: 4px 12px;
 	border-radius: 6px;
 	border: none;
@@ -59,10 +59,62 @@ ul {
 	color: var(--chardonnay);
 }
 
-.btn-project:hover {
+.btn-big:hover {
 	box-shadow:
 		inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2),
 		0px 0.5px 1px rgba(0, 0, 0, 0.1),
 		0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
 	outline: 0;
+}
+
+/* CONTENT CSS */
+/* CONTENT CSS */
+/* CONTENT CSS */
+
+.content-container {
+	padding: 32px 60px;
+}
+
+.project-unit {
+	display: flex;
+}
+
+.todo-list {
+	padding: 8px 16px;
+	display: block;
+}
+
+.modal-darkbg {
+	background-color: rgba(0, 0, 0, 0.2);
+	width: 100vw;
+	height: 100vh;
+	z-index: 0;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+}
+
+.modal-centered {
+	background-color: rgba(255, 255, 255, 0.7);
+	border: 2px solid saddlebrown;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.modal {
+	width: 320px;
+	height: 160px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+}
+
+.modal-form {
+	display: flex;
+	gap: 0.5rem;
 }
