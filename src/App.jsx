@@ -1,95 +1,92 @@
 import { useState } from 'react';
-import Header from './components/Header';
-import Modal from './components/Modal';
+import { Table } from './components/Table';
+import { Modal } from './components/Modal';
 import './App.css';
 
 function App() {
-	const [isOpen, setIsOpen] = useState(false);
-	const [projectList, setProjectList] = useState([]);
+	const [modalOpen, setModalOpen] = useState(false);
+	const [rowToEdit, setRowToEdit] = useState(null);
+	const [rows, setRows] = useState([
+		{
+			id: crypto.randomUUID(),
+			page: 'Home',
+			description: 'This is the home page.',
+			status: 'Live',
+		},
+		{
+			id: crypto.randomUUID(),
+			page: 'About',
+			description: 'This is the about page.',
+			status: 'Draft',
+		},
+	]);
 
-	function addProjectUnit(newProject) {
-		setProjectList(() => {
-			return [
-				...projectList,
-				{ id: crypto.randomUUID(), title: newProject },
-			];
-		});
-	}
+	const handleAddRow = (page, description, status) => {
+		rowToEdit === null
+			? setRows(() => {
+					return [
+						...rows,
+						{
+							id: crypto.randomUUID(),
+							page: page,
+							description: description,
+							status: status,
+						},
+					];
+				})
+			: setRows(
+					rows.map((row) => {
+						if (row.id !== rowToEdit) return row;
+						return {
+							id: row.id,
+							page,
+							description,
+							status,
+						};
+					})
+				);
+	};
 
-	function editProjectUnit(id, title) {
-		// setProjectList((currentProjectList) => {
-		// 	currentProjectList.map((project) => {
-		// 		if (project.id === id) {
-		// 			return { ...project, title };
-		// 		}
-		// 	});
-		// });
-	}
-
-	function deleteProjectUnit(id) {
-		setProjectList((currentProjectList) => {
-			return currentProjectList.filter((project) => {
-				if (project.id !== id) return project;
+	const handleDeleteRow = (targetId) => {
+		setRows((currentRows) => {
+			return currentRows.filter((row) => {
+				if (row.id !== targetId) return row;
 			});
 		});
-	}
+	};
+
+	const handleEditRow = (targetId) => {
+		setRowToEdit(targetId);
+		setModalOpen(true);
+	};
 
 	return (
-		<>
-			<Header isOpen={isOpen} setIsOpen={setIsOpen} />
-			{isOpen && (
+		<div className="App">
+			<h1>Say, Hello!</h1>
+			<Table
+				rows={rows}
+				deleteRow={handleDeleteRow}
+				editRow={handleEditRow}
+			/>
+			<button onClick={() => setModalOpen(true)} className="btn">
+				Add
+			</button>
+			{modalOpen && (
 				<Modal
-					isOpen={isOpen}
-					setIsOpen={setIsOpen}
-					addProjectUnit={addProjectUnit}
+					closeModal={() => {
+						setModalOpen(false);
+						setRowToEdit(null);
+					}}
+					addRow={handleAddRow}
+					defaultValue={
+						rowToEdit !== null &&
+						rows.filter((row) => {
+							return row.id === rowToEdit;
+						})
+					}
 				/>
 			)}
-
-			<main className="content-container">
-				<ul className="project-list">
-					{projectList.map((project) => {
-						return (
-							<li key={project.id} className="project-unit">
-								<h3>{project.title}</h3>
-								<button className="btn-small btn-add">
-									Add
-								</button>
-								<button className="btn-small btn-edit warning">
-									Edit
-								</button>
-								<button
-									onClick={() =>
-										deleteProjectUnit(project.id)
-									}
-									className="btn-small btn-delete danger"
-								>
-									Delete
-								</button>
-
-								{/* Todo list unit */}
-								<ul className="todo-list">
-									<li className="todo-unit">
-										<label>
-											<input type="checkbox" />
-											<span>Todo unit 1</span>
-										</label>
-										<button className="btn-small btn-edit warning">
-											Edit
-										</button>
-										<button className="btn-small btn-delete danger">
-											Delete
-										</button>
-									</li>
-									{/* Another <li /> for any additional todo unit */}
-								</ul>
-							</li>
-						);
-					})}
-
-					{/* Another <li /> for another projects */}
-				</ul>
-			</main>
-		</>
+		</div>
 	);
 }
 
